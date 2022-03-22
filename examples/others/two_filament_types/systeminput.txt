@@ -1,0 +1,149 @@
+##################################################
+##################### GEOMETRY ###################
+
+NX:                          2
+NY:                          2
+NZ:                          10
+
+COMPARTMENTSIZEX:            500.0
+COMPARTMENTSIZEY:            500.0
+COMPARTMENTSIZEZ:            500.0
+
+MONOMERSIZE:                 2.7 1.0
+
+CYLINDERSIZE:                108.0 108.0
+
+BOUNDARYSHAPE:               CUBIC
+
+##################################################
+################### MECHANICS ####################
+
+### ALGORITHM ###
+CONJUGATEGRADIENT:           POLAKRIBIERE
+
+GRADIENTTOLERANCE:           10.0
+# S1, S2, for 108 cylinder size
+
+MAXDISTANCE:		     	 1.0
+LAMBDAMAX:		     		 0.01
+# for 108 cylinder size
+
+### FILAMENTS ###
+
+FSTRETCHINGFFTYPE:           HARMONIC
+FSTRETCHINGK:                100.0 100.0
+# Stretching force constant
+
+FBENDINGFFTYPE:              COSINE
+# COSINE (eq1) or HARMONIC
+FBENDINGK:                   672.0 2E5
+E4
+# See Table 14
+FBENDINGTHETA:               0.0 0.0
+# ?? reference theta
+
+VOLUMEFFTYPE:               integral
+VOLUMECUTOFF:               54.0
+# ?
+VOLUMEK:                    8.57 857
+# Volume force constant, S1	
+
+### BOUNDARY ###
+
+BOUNDARYFFTYPE:             REPULSIONEXP
+# eq11
+BOUNDARYCUTOFF:             200.0
+
+BOUNDARYINTERACTIONK:       100.0
+BOUNDARYSCREENLENGTH:       2.7
+
+### MOTORS ###
+
+MSTRETCHINGFFTYPE:           HARMONIC
+# eq9
+MSTRETCHINGK                 2.5  3.0  3.5
+
+### LINKERS ###
+
+LSTRETCHINGFFTYPE:			 HARMONIC
+LSTRETCHINGK 				 8.0  12.0
+# eq6
+
+### BRANCHING ###
+#BRSTRETCHINGFFTYPE:	     HARMONIC
+#BRSTRETCHINGK:		     100.0
+#BRSTRETCHINGL:		     6.0
+# use the same as filament	
+
+#BRBENDINGFFTYPE:		 COSINE
+#BRBENDINGK:		         100.0
+#BRBENDINGTHETA:		     1.22
+# try to fit the angle distribution
+	
+#BRDIHEDRALFFTYPE:			 COSINE
+#BRDIHEDRALK:		         100.0
+
+#BRPOSITIONFFTYPE: COSINE
+#BRPOSITIONK: 100.0 
+
+
+
+
+##################################################
+################### CHEMISTRY ####################
+
+CHEMISTRYFILE:               m1-1.txt
+
+CALGORITHM:                  NRM
+# NRM or GILLESPIE
+NUMTOTALSTEPS:		     	 
+RUNTIME:                     150.0
+
+SNAPSHOTTIME:                1.0
+
+MINIMIZATIONTIME: 			 0.02
+NEIGHBORLISTTIME:			 0.02
+# S2, C), S1 d)
+
+NUMFILAMENTTYPES:	     2
+
+
+
+NUMBINDINGSITES:             4 1
+# BEA
+
+####### MOTOR ######################
+NUMMOTORHEADSMIN             15   15   15
+NUMMOTORHEADSMAX             30   30   30
+MOTORSTEPSIZE                6.0  6.0  6.0
+
+
+##################################################
+############## DYNAMIC RATE CHANGING #############
+
+DFPOLYMERIZATIONTYPE: 	   BROWRATCHET BROWRATCHET
+DFPOLYMERIZATIONLEN:	   2.7 		2.7
+# ?? S3, C) 
+
+; Myosin unbinding dynamic rate form: LOWDUTYCATCH, LOWDUTYSLIP.
+DMUNBINDINGTYPE          LOWDUTYCATCH LOWDUTYCATCH LOWDUTYCATCH
+DMUNBINDINGFORCE         12.62        12.62        12.62
+# S1
+
+DMWALKINGTYPE            LOWDUTYSTALL LOWDUTYSTALL LOWDUTYSTALL
+DMWALKINGFORCE           15.0         15.0         15.0
+
+; Linker unbinding dynamic rate.
+DLUNBINDINGTYPE          SLIP         SLIP
+DLUNBINDINGLEN           0.24         0.24
+
+
+##################################################
+################# INITIALIZATION #################
+
+FILAMENTFILE:				 filamentinput.txt
+
+NUMFILAMENTS:                10 
+FILAMENTLENGTH:              8
+FILAMENTTYPE: 				 0
+

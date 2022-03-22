@@ -1,0 +1,208 @@
+##################################################
+### Important notes:
+### 1. Units in MEDYAN are nm, second, pN, and pN*nm
+##################################################
+
+##################################################
+### PART I: Basic simulation parameters
+### Carefully check this section before running
+##################################################
+
+### 1. Set network sizes and shape
+# Set the number of compartments in x, y and z directions
+# Network size = compartment size (500nm by default) * (NX, NY, NZ)
+
+NX:                          2
+NY:                          2
+NZ:                          1
+
+# Define network boundary geometry (CUBIC, SPHERICAL, CYLINDER)
+
+BOUNDARYSHAPE:               CUBIC
+
+# Set diameter for SPHERICAL or CYLINDER type
+# CUBIC: No need to set, boundary is the same as network size
+
+BOUNDARYDIAMETER:	     
+
+### 2. Set total running time 
+
+RUNTIME:                     1000.0
+
+### 3. Output simulation results every SNAPSHOTTIME
+
+SNAPSHOTTIME:                1.0
+
+### 4. Set chemistry input file name
+
+CHEMISTRYFILE:               chemistryinput.txt
+
+### 5. Initialize filaments
+# Option 1: Random generation
+# Set the number of filament and 
+# filament length (in number of cylinders)
+# FILAMENTTYPE: use 0 if only one type of filaments
+
+NUMFILAMENTS:                30 
+FILAMENTLENGTH:              1
+FILAMENTTYPE:                0
+
+# Option 2: Initialize by setting input filament file
+
+FILAMENTFILE:	
+
+
+####################################################
+### PART II: Force field information
+### Based on: actin filament, non-muscle myosin IIA,
+### 	      alpha-actinin, Arp2/3
+### Changes not recommended unless using a different
+### species or have a different parameter source
+####################################################
+
+### 1. Minimize system energy every MINIMIZATIONTIME
+# Use a lower value if: 1. simulation fails or generates warnings
+#                       2. has very fast chemical reactions
+# Recommend value: 0.001 - 0.05
+# Please use the same value for NEIGHBORLISTTIME
+
+MINIMIZATIONTIME:             0.05
+NEIGHBORLISTTIME:             0.05
+
+### 2. Actin filaments 
+
+# Stretching: Popov et al, 2016, PLoS Comp Biol
+
+FSTRETCHINGFFTYPE:            HARMONIC
+FSTRETCHINGK:                 100.0
+
+# Bending: Ott et al, 1993, Phys Rev E
+
+FBENDINGFFTYPE:               COSINE
+FBENDINGK:                    672.0
+FBENDINGTHETA:                0.0
+
+# Volume exclusion: Popov et al, 2016, PLoS Comp Biol
+
+VOLUMEFFTYPE:                 integral
+VOLUMECUTOFF:                 27.0
+VOLUMEK:                      8.57
+
+# Dynamic rate model - Brownian Ratchet: 
+# Footer et al, PNAS, 2007
+
+DFPOLYMERIZATIONTYPE: 	      BROWRATCHET
+DFPOLYMERIZATIONLEN:          2.7
+
+### 3. Non-muscle myosin IIA motor
+
+# Stretching: Vilfan, Biophys J, 2010  
+
+MSTRETCHINGFFTYPE:            HARMONIC
+MSTRETCHINGK:                 2.5
+
+# Number of heads: 
+
+NUMMOTORHEADSMIN:             15 
+NUMMOTORHEADSMAX:             30 
+
+# Step size: 
+
+MOTORSTEPSIZE:                6.0
+
+# Dynamic rate - motor catch-bond:
+# Erdmann et al, JCP, 2013
+ 
+DMUNBINDINGTYPE:              LOWDUTYCATCH 
+DMUNBINDINGFORCE:             12.62
+
+# Dynamic rate - motor walking
+# Komianos & Papoian, PRX, 2018
+# Tunable parameters based on different studies
+# recommended values 24pN - 100 pN
+
+DMWALKINGTYPE:                LOWDUTYSTALL
+DMWALKINGFORCE:               90.0
+
+### 4. Alpha-actinin crosslinker
+
+# Stretching: Didonna et al, Phys Rev E, 2007
+
+LSTRETCHINGFFTYPE:            HARMONIC
+LSTRETCHINGK:                 8.0
+
+# Dynamic rate - linker slip-bond:
+# Ferrer et al, PNAS, 2008
+
+DLUNBINDINGTYPE:              SLIP
+DLUNBINDINGLEN:               0.24
+
+### 4. Arp2/3 brancher
+# 4 force fields: Popov et al, Plos Comp Biol, 2016
+# No reliable literature values for this FF
+
+BRSTRETCHINGFFTYPE:           HARMONIC
+BRSTRETCHINGK:                100.0
+BRSTRETCHINGL:                6.0
+
+BRBENDINGFFTYPE:              COSINE
+BRBENDINGK:                   10.0
+BRBENDINGTHETA:               1.22
+	
+BRDIHEDRALFFTYPE:             COSINE
+BRDIHEDRALK:                  10.0
+
+BRPOSITIONFFTYPE:             COSINE
+BRPOSITIONK:                  20.0 
+
+### 5. Boundary 
+# Repulsion: Popov et al, 2016, PLoS Comp Biol
+
+BOUNDARYFFTYPE:               REPULSIONEXP
+BOUNDARYCUTOFF:               300.0
+BOUNDARYINTERACTIONK:         41.0
+BOUNDARYSCREENLENGTH:         2.7
+
+##################################################
+### PART III: Advanced settings
+### Changes not recommended 
+##################################################
+
+### 1. Cylinder setup
+
+MONOMERSIZE:                   2.7
+CYLINDERSIZE:                  108.0
+
+### 2. Algorithm 
+# Minimization
+
+CONJUGATEGRADIENT:             POLAKRIBIERE
+GRADIENTTOLERANCE:             1.0
+MAXDISTANCE:                   1.0
+LAMBDAMAX:                     0.01
+
+# Chemistry
+
+CALGORITHM:                    NRM
+
+### 3. Number of binding site per 108nm cylinder
+
+NUMBINDINGSITES:               4
+
+### 4. The number of filament type
+# I.e. actin filament, microtubule, intermediate filament
+
+NUMFILAMENTTYPES:              1
+
+### 5. The compartment size
+# Based on Kuramoto length, see Popov et al., PLoS Comp Biol, 2016 
+# Some chemical reaction rates are scaled based on compartment size
+
+COMPARTMENTSIZEX:              500.0
+COMPARTMENTSIZEY:              500.0
+COMPARTMENTSIZEZ:              500.0
+
+### 6. Others: DO NOT CHANGE
+
+PROJECTIONTYPE:                STRAIGHT
+allow-same-filament-pair-binding false

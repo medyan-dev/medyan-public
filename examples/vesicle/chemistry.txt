@@ -1,0 +1,73 @@
+
+############################ SPECIES ###########################
+
+SPECIESDIFFUSING           A          111633 20e6 0.0 0.0 REG
+SPECIESDIFFUSING           MemDiffu3D 20000  20e6 0.0 0.0 REG
+SPECIESBULK                MemBulk3D  10000       0.0 0.0 REG
+species-membrane-diffusing MemA       36000  0
+species-membrane-diffusing MemB       18000  0
+species-membrane-diffusing MemDiffu2D 0      0
+
+SPECIESFILAMENT: ActinF 0
+
+SPECIESPLUSEND: Tp 0
+
+SPECIESMINUSEND: Tm 0
+
+SPECIESDIFFUSING: MD 65   0.2e6 0.01 0.0 REG
+SPECIESDIFFUSING: LD 6456 2.0e6 0.01 0.0 REG
+SPECIESDIFFUSING: BD 0    20e6  0.0 0.0 REG
+
+
+SPECIESBOUND: LEA 0 
+SPECIESBOUND: MEA 0
+SPECIESBOUND: BEA 0
+
+SPECIESMOTOR: MOA 0
+SPECIESLINKER: LA 0
+SPECIESBRANCHER: BA 0
+
+LINKERBINDINGSITE: LEA 0 
+MOTORBINDINGSITE: MEA 0
+BRANCHERBINDINGSITE: BEA 0
+
+
+########################### REACTIONS ##########################
+
+; Surface reactions
+reaction-surface 0.055  -> MemA
+reaction-surface 0.55   MemA ->
+reaction-surface 0.55   MemB ->
+reaction-surface 1000   MemA MemB MemB -> MemB MemB MemB
+
+
+reaction-adsorption-desorption 1.0 1.0 MemDiffu3D <-> MemDiffu2D
+reaction-adsorption-desorption 1.0 1.0 MemBulk3D <-> MemDiffu2D
+
+
+# x1
+#Normal polymerization
+POLYMERIZATIONREACTION: 0 A:DIFFUSING + Tp:PLUSEND -> ActinF:FILAMENT + Tp:PLUSEND 0.154
+POLYMERIZATIONREACTION: 0 A:DIFFUSING + Tm:MINUSEND -> ActinF:FILAMENT + Tm:MINUSEND 0.017
+
+
+
+#Normal depolymerization
+DEPOLYMERIZATIONREACTION: 0 ActinF:FILAMENT + Tp:PLUSEND -> A:DIFFUSING + Tp:PLUSEND 1.4
+DEPOLYMERIZATIONREACTION: 0 ActinF:FILAMENT + Tm:MINUSEND -> A:DIFFUSING + Tm:MINUSEND 0.8
+
+
+
+#Motor and linker binding and unbinding
+MOTORREACTION: 0 MEA:BOUND:1 + MEA:BOUND:2 + MD:DIFFUSING <-> MOA:MOTOR:1 + MOA:MOTOR:2 0.2 1.708 175.0 225.0
+LINKERREACTION: 0 LEA:BOUND:1 + LEA:BOUND:2 + LD:DIFFUSING <-> LA:LINKER:1 + LA:LINKER:2 0.009 0.3 30.0 40.0
+
+#Motor walking
+MOTORWALKINGREACTION: 0 MOA:MOTOR:N + MEA:BOUND:N+1 -> MOA:MOTOR:N+1 + MEA:BOUND:N 0.2
+
+#Branch binding and unbinding
+BRANCHINGREACTION: 0 BD:DIFFUSING + A:DIFFUSING + BEA:BOUND <-> BA:BRANCHER + Tp:PLUSEND 0.001 0.01 ALL 0.0
+
+#Destruction
+DESTRUCTIONREACTION: 0 Tp:PLUSEND + Tm:MINUSEND -> A:DIFFUSING + A:DIFFUSING 1.0
+
