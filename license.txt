@@ -1,0 +1,29 @@
+
+MEDYAN LICENSE
+
+Copyright 2015, Papoian Lab
+
+Unless expressly written in this license, MEDYAN, which includes the source code files for all past and current distributions provided by the Papoian lab, is under standard copyright law. This license refers to the MEDYAN source code as the full set of source code files to compile and run the MEDYAN software package in past and previous MEDYAN versions, which is provided solely by the Papoian lab (www.medyan.org). The user refers to the party downloading, compiling, and running MEDYAN.
+
+The following is a set of terms regarding the use and modification of the MEDYAN source code by users for academic and research purposes:
+
+1. MEDYAN source code is provided as is by the Papoian lab and is under no warranty of ANY kind, either express or implied. The entire risk as to the quality and performance of the program is with the user.
+
+2. The user is allowed to download, compile, and run the MEDYAN source code for academic and research purposes only.
+
+3. Users can modify the MEDYAN source code for their own academic and research purposes, but cannot redistribute modified MEDYAN source code that differs in any way from Papoian lab’s current MEDYAN distribution, and cannot redistribute any other codes that use or extend any MEDYAN source code to anyone outside of the user’s research group. User patches can be submitted to the Papoian lab for use in future MEDYAN distributions, where the Papoian lab will give explicit credit to the code authors on any source code file contributed.
+
+4. Any academic or research works by the user resulting in a publication that has used any of the MEDYAN distributions’ source code must cite the following paper:
+
+Popov K, Komianos J, Papoian GA (2016)MEDYAN: Mechanochemical Simulations ofContraction and Polarity Alignment in ActomyosinNetworks. PLoS Comput Biol 12(4): e1004877.doi:10.1371/journal.pcbi.1004877
+
+5. Commercial use of the MEDYAN source code, including integration of this source code to a product for sale or distribution of the source code to a third party for sale, requires a commercial license. If the user would like a commercial license for the MEDYAN source code, the user will contact the Papoian lab to negotiate an appropriate license.
+
+
+THIS LICENSE IS AGREED UPON BY THE USER UPON DOWNLOAD OF THE MEDYAN SOURCE CODE.
+
+
+
+
+
+
