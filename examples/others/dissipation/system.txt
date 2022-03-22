@@ -1,0 +1,112 @@
+##################################################
+##################### GEOMETRY ###################
+
+NX:                          2
+NY:                          2
+NZ:                          2 
+
+COMPARTMENTSIZEX:            500.0
+COMPARTMENTSIZEY:            500.0
+COMPARTMENTSIZEZ:            500.0
+
+MONOMERSIZE:                 2.7
+ 
+CYLINDERSIZE:                27.0
+
+BOUNDARYSHAPE:               CUBIC
+
+##################################################
+################### MECHANICS ####################
+
+### ALGORITHM ###
+CONJUGATEGRADIENT:           POLAKRIBIERE
+
+GRADIENTTOLERANCE:           1.0
+
+MAXDISTANCE:		     0.05
+LAMBDAMAX:		     0.005
+
+### FILAMENTS ###
+
+FSTRETCHINGFFTYPE:           HARMONIC
+FSTRETCHINGK:                100.0
+
+FBENDINGFFTYPE:              COSINE
+FBENDINGK:                   2690
+FBENDINGTHETA:               0.0
+
+VOLUMEFFTYPE:               integral
+VOLUMECUTOFF:               54.0
+
+VOLUMEK:                    137
+
+### MOTORS ###
+
+MSTRETCHINGFFTYPE:          HARMONIC
+MSTRETCHINGK:               2.5
+
+### LINKERS ###
+
+LSTRETCHINGFFTYPE:	    HARMONIC	
+LSTRETCHINGK:		    8.0 
+
+### BOUNDARY ###
+
+BOUNDARYFFTYPE:             REPULSIONEXP
+BOUNDARYCUTOFF:             200.0
+
+BOUNDARYINTERACTIONK:       41.0
+BOUNDARYSCREENLENGTH:       2.7
+
+##################################################
+################### CHEMISTRY ####################
+
+CHEMISTRYFILE:               chemistry.txt
+
+CALGORITHM:                  NRM
+NUMTOTALSTEPS:		     	 
+RUNTIME:                     2000.0
+
+SNAPSHOTTIME:                0.1
+
+MINIMIZATIONTIME: 	     0.05 
+NEIGHBORLISTTIME:	     0.05
+
+DISSIPATIONTRACKING:         ON
+EVENTTRACKING:               ON
+
+NUMFILAMENTTYPES:	     1
+
+NUMBINDINGSITES:             4
+
+NUMMOTORHEADSMIN:	     15   
+NUMMOTORHEADSMAX:	     25	 
+MOTORSTEPSIZE:	 	     6.0
+
+
+##################################################
+############## DYNAMIC RATE CHANGING #############
+
+DFPOLYMERIZATIONTYPE: 	    BROWRATCHET 
+DFPOLYMERIZATIONLEN:	    2.7 		   
+
+DMUNBINDINGTYPE:	     LOWDUTYCATCH  
+DMUNBINDINGFORCE:	     12.62
+
+DMWALKINGTYPE:		     LOWDUTYSTALL
+DMWALKINGFORCE:	    	     50.0
+
+DLUNBINDINGTYPE:		 SLIP
+DLUNBINDINGLEN:			 0.24
+			
+
+##################################################
+################# INITIALIZATION #################
+
+NUMFILAMENTS:                20 
+FILAMENTLENGTH:              1
+FILAMENTTYPE: 		     0
+
+
+
+

@@ -1,0 +1,172 @@
+##################################################
+##################### GEOMETRY ###################
+
+NX:                          6
+NY:                          6
+NZ:                          6 
+
+COMPARTMENTSIZEX:            500.0
+COMPARTMENTSIZEY:            500.0
+COMPARTMENTSIZEZ:            500.0
+
+MONOMERSIZE:                 2.7
+ 
+CYLINDERSIZE:                108.0
+
+BOUNDARYSHAPE:               CUBIC
+
+surface-curvature-policy     squared
+
+##################################################
+################### MECHANICS ####################
+
+### ALGORITHM ###
+CONJUGATEGRADIENT:           POLAKRIBIERE
+
+GRADIENTTOLERANCE:           5.0
+
+MAXDISTANCE:		     0.2
+LAMBDAMAX:		     0.01
+
+### FILAMENTS ###
+
+FSTRETCHINGFFTYPE:           HARMONIC
+FSTRETCHINGFFTYPE:          
+FSTRETCHINGK:                44.0
+
+FBENDINGFFTYPE:              COSINE
+FBENDINGFFTYPE:              
+FBENDINGK:                   672.5
+#FBENDINGK:                   6725
+FBENDINGTHETA:               0.0
+
+VOLUMEFFTYPE:               integral
+VOLUMECUTOFF:               127.0
+
+VOLUMEK:                    8.57
+
+### MOTORS ###
+
+MSTRETCHINGFFTYPE:          HARMONIC
+MSTRETCHINGK:               2.5
+
+### LINKERS ###
+
+LSTRETCHINGFFTYPE:	    HARMONIC	
+LSTRETCHINGK:		    8.0 
+
+### BRANCHING ###
+
+BRSTRETCHINGFFTYPE:	    HARMONIC
+BRSTRETCHINGK:		    5.0
+BRSTRETCHINGL:		    6.0
+
+BRBENDINGFFTYPE:	    COSINE
+BRBENDINGK:		    30.0
+BRBENDINGTHETA:		    1.22
+
+BRDIHEDRALFFTYPE:           QUADRATIC
+BRDIHEDRALK:		    5.0
+
+BRPOSITIONFFTYPE: 	    COSINE
+BRPOSITIONK: 		    5.0 
+
+### BOUNDARY ###
+
+BOUNDARYFFTYPE:             REPULSIONEXP
+BOUNDARYCUTOFF:             200.0
+
+BOUNDARYINTERACTIONK:       41.0
+BOUNDARYSCREENLENGTH:       2.7
+
+### MEMBRANE ###
+
+(membrane prof1
+  (vertex-system     general)
+  (area-k            400)
+  (bending-k         100)
+  (eq-curv           0)
+  (tension           0.02)
+  (volume-k          0.8)
+)
+
+(init-membrane prof1
+  (mesh              ELLIPSOID 1500 1500 1500 800 800 800)
+  (eq-area-factor    0.98)
+  (species           MemA 5000)
+  (species           MemB 2000))
+
+; membrane-stretching-ff-type
+membrane-tension-ff-type     CONSTANT
+membrane-bending-ff-type     HELFRICH
+volume-conservation-ff-type  MEMBRANE
+triangle-bead-volume-ff-type REPULSION
+triangle-bead-volume-k       650
+triangle-bead-volume-cutoff  150
+triangle-bead-volume-cutoff-mech 60
+
+
+### Bubbles ###
+BUBBLEFFTYPE:               REPULSIONEXP
+BUBBLECUTOFF:               840
+BUBBLEINTERACTIONK:         90
+BUBBLESCREENLENGTH:         15
+BUBBLERADIUS:               740
+NUMBUBBLETYPES:             1
+
+### special ###
+
+
+##################################################
+################### CHEMISTRY ####################
+
+CHEMISTRYFILE:               chemistry.txt
+
+CALGORITHM:                  NRM
+NUMTOTALSTEPS:		     	 
+RUNTIME:                     200
+
+SNAPSHOTTIME:                0.02
+
+MINIMIZATIONTIME: 	     0.002
+NEIGHBORLISTTIME:	     0.002
+
+NUMFILAMENTTYPES:	     1
+
+NUMBINDINGSITES:             4
+
+NUMMOTORHEADSMIN:	     15   
+NUMMOTORHEADSMAX:	     30	 
+MOTORSTEPSIZE:	 	     6.0
+
+
+##################################################
+############## DYNAMIC RATE CHANGING #############
+
+DFPOLYMERIZATIONTYPE: 	    BROWRATCHET 
+DFPOLYMERIZATIONLEN:	    2.7 		   
+
+DMUNBINDINGTYPE:	     LOWDUTYCATCH  
+DMUNBINDINGFORCE:	     12.62
+
+DMWALKINGTYPE:		     LOWDUTYSTALL
+DMWALKINGFORCE:	    	     15.0
+
+DLUNBINDINGTYPE:		 SLIP
+DLUNBINDINGLEN:			 0.24
+			
+
+##################################################
+################# INITIALIZATION #################
+
+NUMFILAMENTS:                81
+FILAMENTLENGTH:              2
+FILAMENTTYPE: 		     0
+#FILAMENTFILE:                fil.txt
+
+#BUBBLEFILE:                 bubbles.txt
+
+
+
+
+

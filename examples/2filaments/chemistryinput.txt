@@ -1,0 +1,60 @@
+##########################################################################
+### Important notes: 
+### 1. This sample file includes](1) linker (un)binding, 
+###    (2) motor (un)binding and motor walking, 
+### 2. Based on alpha-actinin, non-muscle myosin II 
+### 3. The unit for reaction rates is 1/s
+### 4. The unit for diffusion coefficient is nm^2/s
+### 5. The unit for concentration is the number of molecule (copy number)
+##########################################################################
+
+##################################################
+### PART I: Define species
+##################################################
+
+### 1. Diffusing species 
+# 1uM molecules = 602 copy number per um^3 
+# SPECIESDIFFUSING <NAME> <COPYNUMBER> <DIFFCOEFF> <RELEASETIME> <REMOVALTIME> REG 
+
+SPECIESDIFFUSING: A  0  20e6  0.0 0.0 REG
+SPECIESDIFFUSING: MD 1  0.2e6 0.0 0.0 REG
+SPECIESDIFFUSING: LD 50 2.0e6 0.0 0.0 REG
+
+### 2. Filament species
+
+SPECIESFILAMENT:     AF 0
+SPECIESPLUSEND:      PA 0
+SPECIESMINUSEND:     MA 0
+
+### 3. Binding species and binding sites
+# Changes not recommended
+
+# For motor
+SPECIESMOTOR:        MOA 0
+SPECIESBOUND:        MEA 0
+MOTORBINDINGSITE:    MEA 0
+
+# For linker
+SPECIESLINKER:       LA 0
+SPECIESBOUND:        LEA 0 
+LINKERBINDINGSITE:   LEA 0 
+
+# For branching
+SPECIESBRANCHER:     BA 0
+SPECIESBOUND:        BEA 0
+BRANCHERBINDINGSITE: BEA 0
+
+##################################################
+### PART II: Define Reactions
+##################################################
+
+### 1. Linker (un)binding
+# Wachsstock, et al, Biophys J, 1993
+ 
+LINKERREACTION: 0 LEA:BOUND:1 + LEA:BOUND:2 + LD:DIFFUSING <-> LA:LINKER:1 + LA:LINKER:2 0.01 0.3 30.0 40.0
+
+### 2. Motor (un)binding and walking
+# Stam et al, Biophys J, 2015
+
+MOTORREACTION: 0 MEA:BOUND:1 + MEA:BOUND:2 + MD:DIFFUSING <-> MOA:MOTOR:1 + MOA:MOTOR:2 0.2 0.35 175.0 225.0
+MOTORWALKINGREACTION: 0 MOA:MOTOR:N + MEA:BOUND:N+1 -> MOA:MOTOR:N+1 + MEA:BOUND:N 0.2
