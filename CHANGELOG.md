@@ -1,10 +1,12 @@
-# Current
+# 5.4.0 (Released 2022-03-27)
 
 ## Enhancements
 - Added fixed membrane vertex attachments, including initialization and force field. ([#129](https://github.com/medyan-dev/medyan/pull/129))
 
 ## Bug fixes
 - Fixed the issue where the max force was not updated after recovery operation during conjugate gradient minimization. ([#128](https://github.com/medyan-dev/medyan/pull/128))
+- Fixed the memory leak issue during minimization. ([#130](https://github.com/medyan-dev/medyan/pull/130))
+- In visualization, fixed the issue where the line visualization was not disabled when the trajectory is disabled (99e6925).
 
 
 # 5.3.0 (Released 2022-03-14)
