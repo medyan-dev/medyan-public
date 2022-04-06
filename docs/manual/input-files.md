@@ -42,8 +42,8 @@ The following geometric parameters can be set. All geometry parameters must be s
 | COMPARTMENTSIZEX | double | Size of compartment in X direction. |
 | COMPARTMENTSIZEY | double | Size of compartment in Y direction. |
 | COMPARTMENTSIZEZ | double | Size of compartment in Z direction. |
-| MONOMERSIZE | double | Size of monomer for filament growth . |
-| CYLINDERSIZE | double | Size of cylinder in filament. |
+| MONOMERSIZE | double | Size of monomer for filament growth (nm). |
+| CYLINDERSIZE | double | Size of cylinder in filament (nm). |
 | BOUNDARYSHAPE | {SPHERICAL, CUBIC, CAPSULE} | Boundary shape. |
 | BOUNDARYDIAMETER | double | Diameter for applicable shapes, including SPHERICAL and CAPSULE geometries. |
 
@@ -84,7 +84,7 @@ If a force field type is left blank, that force field will not be included in th
 | BRPOSITIONTYPE | {HARMONIC} | Branching point position force field. |
 | BRPOSITIONK | double | Branching point position force constant. |
 | VOLUMEFFTYPE | {integral, monomer} | Volume force type. When monomer-based volume exclusion is used, `volume-exclusion-monomer-interval` can be specified as well. `REPULSION` is the old option for `integral`, but its use is deprecated. |
-| VOLUMECUTOFF | double | Volume interaction cutoff distance. |
+| VOLUMECUTOFF | double | Volume interaction cutoff distance (nm). The volume force is only calculated on pairs of cylinders with mid points closer than this distance. This should always be larger than `CYLINDERSIZE` |
 | VOLUMEK | double | Volume force constant. |
 | volume-exclusion-monomer-interval | list int | Interval of monomer sampling for volume exclusion for each filament type. |
 | BOUNDARYFFTYPE | {REPULSIONEXP} | Boundary force type. |

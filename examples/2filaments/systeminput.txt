@@ -85,7 +85,7 @@ FBENDINGTHETA:                0.0
 # Volume exclusion: Popov et al, 2016, PLoS Comp Biol
 
 VOLUMEFFTYPE                  monomer
-VOLUMECUTOFF:                 27.0
+VOLUMECUTOFF:                 135.0
 VOLUMEK:                      8.57
 volume-exclusion-monomer-interval 5
 
