@@ -1,3 +1,10 @@
+# Current
+
+## Enhancements
+- Filaments in HDF5 output are now stored as groups. Apart from the bead positions, they also contain other information such as monomer states. ([#132](https://github.com/medyan-dev/medyan/pull/132))
+- Imported `Filament::fullCylinder0MinusMonomerSerial` from the spline model to help conversion between monomer serial ID and the monomer index on a full cylinder. ([#133](https://github.com/medyan-dev/medyan/pull/133))
+
+
 # 5.4.0 (Released 2022-03-27)
 
 ## Enhancements

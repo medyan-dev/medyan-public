@@ -208,8 +208,11 @@ All desired system information should be stored in the `traj.h5` file. The file 
    │  │  │  └─ 🔢 type
    │  │  └─ 🔢 count                     <- number of bubbles
    │  ├─ 📂 filaments
-   │  │  ├─ 🔢 0                         <- 3xN matrix where N is the number of beads
-   │  │  ├─ 🔢 ...
+   │  │  ├─ 📂 0
+   │  │  │  ├─ 🔢 beadCoords             <- 3 x NUM_BEADS matrix
+   │  │  │  ├─ 🔢 monomerIds             <- 3 x (NUM_BEADS-1) matrix of Int32
+   │  │  │  ├─ 🔢 extraCoords            <- All coordinates to determine shape of filament
+   │  │  │  └─ 🔢 monomerStates          <- 1 x NUM_MONOMERS matrix of UInt8
    │  │  └─ 🔢 count                     <- number of filaments
    │  ├─ 📂 linkers
    │  │  ├─ 📂 0
