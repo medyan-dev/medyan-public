@@ -3,6 +3,12 @@
 ## Enhancements
 - Filaments in HDF5 output are now stored as groups. Apart from the bead positions, they also contain other information such as monomer states. ([#132](https://github.com/medyan-dev/medyan/pull/132))
 - Imported `Filament::fullCylinder0MinusMonomerSerial` from the spline model to help conversion between monomer serial ID and the monomer index on a full cylinder. ([#133](https://github.com/medyan-dev/medyan/pull/133))
+- Added `vertex-pinning` option in membrane input. ([#134](https://github.com/medyan-dev/medyan/pull/134))
+- Simplified membrane mesh initialization. ([#134](https://github.com/medyan-dev/medyan/pull/134))
+
+## Bug fixes
+- Fixed vertex index tracking issue after edge collapse. ([#134](https://github.com/medyan-dev/medyan/pull/134))
+- Fixed vertex degree at border. ([#134](https://github.com/medyan-dev/medyan/pull/134))
 
 
 # 5.4.0 (Released 2022-03-27)
