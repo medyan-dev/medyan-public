@@ -5,6 +5,7 @@
 - Imported `Filament::fullCylinder0MinusMonomerSerial` from the spline model to help conversion between monomer serial ID and the monomer index on a full cylinder. ([#133](https://github.com/medyan-dev/medyan/pull/133))
 - Added `vertex-pinning` option in membrane input. ([#134](https://github.com/medyan-dev/medyan/pull/134))
 - Simplified membrane mesh initialization. ([#134](https://github.com/medyan-dev/medyan/pull/134))
+- Use `PerformanceStats` to track some events instead of `OPTIMOUT` macro. ([#136](https://github.com/medyan-dev/medyan/pull/136))
 
 ## Bug fixes
 - Fixed vertex index tracking issue after edge collapse. ([#134](https://github.com/medyan-dev/medyan/pull/134))
