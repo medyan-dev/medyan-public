@@ -10,6 +10,7 @@
 ## Bug fixes
 - Fixed vertex index tracking issue after edge collapse. ([#134](https://github.com/medyan-dev/medyan/pull/134))
 - Fixed vertex degree at border. ([#134](https://github.com/medyan-dev/medyan/pull/134))
+- Fixed a bug in cube slicing. ([#139](https://github.com/medyan-dev/medyan/pull/139))
 
 
 # 5.4.0 (Released 2022-03-27)
