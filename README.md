@@ -8,7 +8,7 @@ Welcome to Papoian Lab’s *Mechanochemical Dynamics of Active Networks* softwar
 
 Copyright 2015-2022, Papoian lab at the University of Maryland.
 
-For more general information about the code, visit [medyan.org](http://medyan.org) or the [Papoian lab page](http://papoian.chem.umd.edu/). 
+For more general information about the code, visit [medyan.org](http://medyan.org) or the [Papoian lab page](http://papoian.chem.umd.edu/). If you have questions, you can open an issue at <https://github.com/medyan-dev/medyan-public>.
 
 This code is distributed under [the license](license.txt) found in this directory, `license.txt`.
 
