@@ -1,0 +1,31 @@
+name: Deploy (after successful build and test)
+
+on:
+  push:
+    branches:
+    - master
+  schedule:
+    - cron: "*/5 * * * *"
+
+jobs:
+  depoly-windows:
+    runs-on: windows-2022
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        repository: medyan-dev/medyan
+        token: ${{ secrets.MEDYAN_BOT_PAT_REPO }}
+        path: medyan
+    - name: prepare dependencies
+      run: |
+        .\medyan\conf.ps1
+    - name: build with MSBuild
+      working-directory: medyan
+      run: |
+        cd build
+        & "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin\MSBuild.exe" .\MEDYAN.sln /property:Configuration=Release /property:Platform=x64
+    - name: run tests
+      working-directory: medyan
+      run: |
+        ls -lha .\build\Release
+        .\build\Release\medyan.exe test
