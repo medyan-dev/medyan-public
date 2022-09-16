@@ -21,6 +21,7 @@ jobs:
         repository: medyan-dev/medyan
         token: ${{ secrets.MEDYAN_BOT_PAT_REPO }}
         path: medyan
+        fetch-depth: 0
 
     - name: prepare dependencies (windows)
       if: matrix.os == 'windows-latest'
