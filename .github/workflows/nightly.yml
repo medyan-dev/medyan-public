@@ -25,6 +25,7 @@ jobs:
 
     - name: prepare dependencies (ubuntu)
       if: matrix.os == 'ubuntu-latest'
+      working-directory: medyan
       run: |
         # required by glfw3 library
         sudo apt-get update && sudo apt install libxinerama-dev libxcursor-dev xorg-dev libglu1-mesa-dev
@@ -34,9 +35,10 @@ jobs:
         sed -i -e '/    target_link_libraries(medyan PRIVATE Threads::Threads)/a\' -e '    target_link_options(medyan BEFORE PRIVATE "-Wl,--no-as-needed")' CMakeLists.txt
         ./conf.sh
     - name: prepare dependencies (windows)
+      working-directory: medyan
       if: matrix.os == 'windows-latest'
       run: |
-        .\medyan\conf.ps1
+        .\conf.ps1
     - name: prepare dependencies (macos)
       if: matrix.os == 'macos-latest'
       working-directory: medyan
