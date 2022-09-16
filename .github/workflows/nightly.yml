@@ -3,7 +3,7 @@ name: Deploy (after successful build and test)
 on:
   push:
     branches:
-    - master
+    - main
   schedule:
     - cron: "*/5 * * * *"
 
@@ -29,3 +29,28 @@ jobs:
       run: |
         ls -lha .\build\Release
         .\build\Release\medyan.exe test
+
+  deploy-macos:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        repository: medyan-dev/medyan
+        token: ${{ secrets.MEDYAN_BOT_PAT_REPO }}
+        path: medyan
+    - name: prepare dependencies
+      working-directory: medyan
+      run: |
+        brew install pkg-config
+        sed -i '' -e 's/-mtune=native -march=native/-mavx/g' CMakeLists.txt
+        ./conf.sh
+    - name: build with make
+      working-directory: medyan
+      run: |
+        cd build
+        make VERBOSE=1
+    - name: run tests
+      working-directory: medyan
+      run: |
+        ./build/medyan test
