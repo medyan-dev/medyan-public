@@ -23,6 +23,16 @@ jobs:
         path: medyan
         fetch-depth: 0
 
+    - name: prepare dependencies (ubuntu)
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        # required by glfw3 library
+        sudo apt-get update && sudo apt install libxinerama-dev libxcursor-dev xorg-dev libglu1-mesa-dev
+        # Use avx2 (default avx512 causes trouble in UMEsimd)
+        sed -i 's/-mtune=native -march=native/-mavx2 -mno-avx512f/g' CMakeLists.txt
+        # add --no-as-needed to correctly link pthread
+        sed -i -e '/    target_link_libraries(medyan PRIVATE Threads::Threads)/a\' -e '    target_link_options(medyan BEFORE PRIVATE "-Wl,--no-as-needed")' CMakeLists.txt
+        ./conf.sh
     - name: prepare dependencies (windows)
       if: matrix.os == 'windows-latest'
       run: |
@@ -42,8 +52,8 @@ jobs:
         cd build
         & "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin\MSBuild.exe" .\MEDYAN.sln /property:Configuration=Release /property:Platform=x64
         ls Release
-    - name: build (macos with make)
-      if: matrix.os == 'macos-latest'
+    - name: build (macos/ubuntu with make)
+      if: matrix.os == 'macos-latest' || matrix.os == 'ubuntu-latest'
       working-directory: medyan
       run: |
         cd build
@@ -55,8 +65,8 @@ jobs:
       working-directory: medyan
       run: |
         .\build\Release\medyan.exe test
-    - name: run tests (macos)
-      if: matrix.os == 'macos-latest'
+    - name: run tests (macos/ubuntu)
+      if: matrix.os == 'macos-latest' || matrix.os == 'ubuntu-latest'
       working-directory: medyan
       run: |
         ./build/medyan test
@@ -71,13 +81,25 @@ jobs:
           DestinationPath = ".\build\Release\medyan.zip"
         }
         Compress-Archive @compress
-    - name: bundle files (macos)
-      if: matrix.os == 'macos-latest'
+    - name: bundle files (macos/ubuntu)
+      if: matrix.os == 'macos-latest' || matrix.os == 'ubuntu-latest'
       working-directory: medyan
       run: |
         cd build
         zip medyan.zip medyan
 
+    - name: deploy release (ubuntu)
+      if: matrix.os == 'ubuntu-latest'
+      uses: WebFreak001/deploy-nightly@v1.1.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: https://uploads.github.com/repos/medyan-dev/medyan-public/releases/65013247/assets{?name,label}
+        release_id: 65013247
+        asset_path: ./medyan/build/medyan.zip
+        asset_name: medyan-x86_64-linux.zip
+        asset_content_type: application/zip
+        max_releases: 1
     - name: deploy release (windows)
       if: matrix.os == 'windows-latest'
       uses: WebFreak001/deploy-nightly@v1.1.0
@@ -99,6 +121,6 @@ jobs:
         upload_url: https://uploads.github.com/repos/medyan-dev/medyan-public/releases/65013247/assets{?name,label}
         release_id: 65013247
         asset_path: ./medyan/build/medyan.zip
-        asset_name: medyan-x86_64-linux.zip
+        asset_name: medyan-x86_64-macos.zip
         asset_content_type: application/zip
         max_releases: 1
