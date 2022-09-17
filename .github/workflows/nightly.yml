@@ -38,6 +38,8 @@ jobs:
       working-directory: medyan
       if: matrix.os == 'windows-latest'
       run: |
+        # Fix find_package issue.
+        (get-content .\CMakeLists.txt) | %{$_ -replace "project\(medyan\)","project(medyan)`nset(CMAKE_FIND_USE_CMAKE_PATH TRUE)"} | Set-Content .\CMakeLists.txt
         .\conf.ps1
     - name: prepare dependencies (macos)
       if: matrix.os == 'macos-latest'
