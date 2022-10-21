@@ -1,0 +1,42 @@
+BootStrap: docker
+From: ubuntu:20.04
+
+%post
+    apt-get -y update
+    DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install wget git g++ cmake curl zip unzip tar pkg-config
+    wget https://github.com/medyan-dev/medyan-public/releases/download/v5.4.0/medyan-5.4.0.zip
+    unzip medyan-5.4.0.zip
+    cd medyan-5.4.0
+    # Use avx2 (default avx512 causes trouble in UMEsimd)
+    sed -i 's/-mtune=native -march=native/-mavx2 -mno-avx512f/g' CMakeLists.txt
+    MEDYAN_NO_GUI="true" ./conf.sh
+    cd build
+    make -j8
+    cp medyan ../../
+    cd ../..
+    # cleanup
+    rm -rf medyan-5.4.0
+    rm -rf medyan-5.4.0.zip
+    apt-get -y --purge autoremove wget
+    apt-get -y --purge autoremove git
+    apt-get -y --purge autoremove g++
+    apt-get -y --purge autoremove cmake
+    apt-get -y --purge autoremove curl
+    apt-get -y --purge autoremove zip
+    apt-get -y --purge autoremove unzip
+    apt-get -y --purge autoremove pkg-config
+    apt-get autoclean
+
+%environment
+    export LC_ALL=C
+
+# This version of medyan creates a log file even when testing, but apptainer doesn't like this.
+# %test
+#     /medyan test
+
+%runscript
+    exec /medyan "$@"
+
+%labels
+    Author Papoian Lab
+    Version v5.4.0
