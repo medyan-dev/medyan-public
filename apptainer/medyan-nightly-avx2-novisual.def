@@ -7,7 +7,7 @@ From: ubuntu:20.04
     DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install wget git g++ cmake curl zip unzip tar pkg-config
     wget https://github.com/medyan-dev/medyan-public/releases/download/nightly/medyan-${MEDYAN_VERSION}.zip
     unzip medyan-${MEDYAN_VERSION}.zip
-    cd medyan
+    cd medyan-${MEDYAN_VERSION}
     # Use avx2 (default avx512 causes trouble in UMEsimd)
     sed -i 's/-mtune=native -march=native/-mavx2 -mno-avx512f/g' CMakeLists.txt
     MEDYAN_NO_GUI="true" ./conf.sh
