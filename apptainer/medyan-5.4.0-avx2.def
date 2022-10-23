@@ -30,9 +30,8 @@ From: ubuntu:20.04
 %environment
     export LC_ALL=C
 
-# This version of medyan creates a log file even when testing, but apptainer doesn't like this.
-# %test
-#     /medyan test
+%test
+    /medyan test
 
 %runscript
     exec /medyan "$@"
