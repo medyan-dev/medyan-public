@@ -31,6 +31,7 @@ jobs:
     - name: zip source
       working-directory: medyan
       run: |
+        rm -rf .github c++tutorials docsdev papers restart
         cd .. && zip -r medyan.zip medyan
 
     - name: deploy source
