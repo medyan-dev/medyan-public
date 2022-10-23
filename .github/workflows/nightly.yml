@@ -29,9 +29,9 @@ jobs:
         fetch-depth: 0
 
     - name: zip source
-      working-directory: /
+      working-directory: medyan
       run: |
-        zip -r medyan.zip medyan
+        cd .. && zip -r medyan.zip medyan
 
     - name: deploy source
       uses: WebFreak001/deploy-nightly@v1.1.0
@@ -40,7 +40,7 @@ jobs:
       with:
         upload_url: https://uploads.github.com/repos/medyan-dev/medyan-public/releases/65013247/assets{?name,label}
         release_id: 65013247
-        asset_path: /medyan.zip
+        asset_path: ./medyan.zip
         asset_name: medyan-nightly.zip
         asset_content_type: application/zip
         max_releases: 1
