@@ -11,10 +11,8 @@ jobs:
   nightly:
     name: nightly deploy
     strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest]
-    runs-on: ${{ matrix.os }}
+      fail-fast: true
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
       with:
@@ -47,7 +45,6 @@ jobs:
         max_releases: 1
 
     - name: prepare build dependencies (ubuntu)
-      if: matrix.os == 'ubuntu-latest'
       working-directory: medyan
       run: |
         # Install apptainer.
@@ -103,68 +100,3 @@ jobs:
         asset_name: medyan-nightly-avx2-novisual.sif
         asset_content_type: application/octet-stream
         max_releases: 1
-
-    # - name: run tests (windows)
-    #   if: matrix.os == 'windows-latest'
-    #   working-directory: medyan
-    #   run: |
-    #     .\build\Release\medyan.exe test
-    # - name: run tests (macos)
-    #   if: matrix.os == 'macos-latest'
-    #   working-directory: medyan
-    #   run: |
-    #     ./build/medyan test
-
-    # - name: bundle files (windows)
-    #   if: matrix.os == 'windows-latest'
-    #   working-directory: medyan
-    #   run: |
-    #     $compress = @{
-    #       Path = ".\build\Release\medyan.exe"
-    #       CompressionLevel = "Fastest"
-    #       DestinationPath = ".\build\Release\medyan.zip"
-    #     }
-    #     Compress-Archive @compress
-    # - name: bundle files (macos/ubuntu)
-    #   if: matrix.os == 'macos-latest' || matrix.os == 'ubuntu-latest'
-    #   working-directory: medyan
-    #   run: |
-    #     cd build
-    #     zip medyan.zip medyan
-
-    # - name: deploy release (ubuntu)
-    #   if: matrix.os == 'ubuntu-latest'
-    #   uses: WebFreak001/deploy-nightly@v1.1.0
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #   with:
-    #     upload_url: https://uploads.github.com/repos/medyan-dev/medyan-public/releases/65013247/assets{?name,label}
-    #     release_id: 65013247
-    #     asset_path: ./medyan/build/medyan.zip
-    #     asset_name: medyan-x86_64-linux.zip
-    #     asset_content_type: application/zip
-    #     max_releases: 1
-    # - name: deploy release (windows)
-    #   if: matrix.os == 'windows-latest'
-    #   uses: WebFreak001/deploy-nightly@v1.1.0
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #   with:
-    #     upload_url: https://uploads.github.com/repos/medyan-dev/medyan-public/releases/65013247/assets{?name,label}
-    #     release_id: 65013247
-    #     asset_path: .\medyan\build\Release\medyan.zip
-    #     asset_name: medyan-x86_64-win.zip
-    #     asset_content_type: application/zip
-    #     max_releases: 1
-    # - name: deploy release (macos)
-    #   if: matrix.os == 'macos-latest'
-    #   uses: WebFreak001/deploy-nightly@v1.1.0
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #   with:
-    #     upload_url: https://uploads.github.com/repos/medyan-dev/medyan-public/releases/65013247/assets{?name,label}
-    #     release_id: 65013247
-    #     asset_path: ./medyan/build/medyan.zip
-    #     asset_name: medyan-x86_64-macos.zip
-    #     asset_content_type: application/zip
-    #     max_releases: 1
