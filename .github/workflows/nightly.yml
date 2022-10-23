@@ -85,27 +85,24 @@ jobs:
           sudo make -C ./builddir install
         singularity version
 
-    # - name: build (windows with MSBuild)
-    #   if: matrix.os == 'windows-latest'
-    #   working-directory: medyan
-    #   run: |
-    #     cd build
-    #     & "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin\MSBuild.exe" .\MEDYAN.sln /property:Configuration=Release /property:Platform=x64
-    #     ls Release
-    # - name: build (macos with make)
-    #   if: matrix.os == 'macos-latest'
-    #   working-directory: medyan
-    #   run: |
-    #     cd build
-    #     make VERBOSE=1
-    #     ls build
-    # - name: build and test (ubuntu with apptainer)
-    #   if: matrix.os == 'ubuntu-latest'
-    #   working-directory: medyan-public
-    #   run: |
-    #     cd apptainer && \
-    #       apptainer build --writable-tmpfs medyan-5.4.0-avx2.sif medyan-5.4.0-avx2.def && \
-    #       ls .
+    - name: build and test (ubuntu with apptainer)
+      working-directory: medyan-public
+      run: |
+        cd apptainer && \
+          apptainer build --writable-tmpfs medyan-nightly-avx2-novisual.sif medyan-nightly-avx2-novisual.def && \
+          ls .
+
+    - name: deploy container
+      uses: WebFreak001/deploy-nightly@v1.1.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: https://uploads.github.com/repos/medyan-dev/medyan-public/releases/80741266/assets{?name,label}
+        release_id: 80741266
+        asset_path: ./medyan-public/apptainer/medyan-nightly-avx2-novisual.sif
+        asset_name: medyan-nightly-avx2-novisual.sif
+        asset_content_type: application/octet-stream
+        max_releases: 1
 
     # - name: run tests (windows)
     #   if: matrix.os == 'windows-latest'
