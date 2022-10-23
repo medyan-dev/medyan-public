@@ -38,8 +38,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: https://uploads.github.com/repos/medyan-dev/medyan-public/releases/65013247/assets{?name,label}
-        release_id: 65013247
+        upload_url: https://uploads.github.com/repos/medyan-dev/medyan-public/releases/80741266/assets{?name,label}
+        release_id: 80741266
         asset_path: ./medyan.zip
         asset_name: medyan-nightly.zip
         asset_content_type: application/zip
